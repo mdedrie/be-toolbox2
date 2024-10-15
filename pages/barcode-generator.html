@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de code bar</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100">
+    <div id="sidebar">
+        <img src="https://www.seiven.com/wp-content/uploads/2024/09/Logo-blanc-3-Seiven-2024.webp" alt="Logo">
+        <ul>
+            <li><a href="csv-analyzer.html">Analyseur CSV Amélioré</a></li>
+            <li><a href="barcode-generator.html">Générateur de code bar</a></li>
+        </ul>
+    </div>
+    
+    <div id="main-content">
+        <header class="w-full text-white text-center shadow-md">
+            <h1 class="text-5xl font-bold">Générateur de code bar</h1>
+        </header>
+        
+        <main class="w-full flex flex-col items-center mt-8 px-4">
+            <div id="barcode-generator" class="rounded-lg w-full max-w-3xl text-center">
+                <form class="my-form">
+                    <button class="form-button text-white font-bold rounded mb-4">
+                        <i class="fas fa-barcode"></i> Générer un code bar
+                    </button>
+                    <p>Entrez les informations nécessaires pour générer un code bar</p>
+                    <input type="text" id="barcodeInput" placeholder="Entrez les données" class="border rounded p-2 mt-4">
+                </form>
+            </div>
+            
+            <section id="barcode-display" class="w-full max-w-3xl p-6 bg-[#00D699] rounded-lg mt-6 shadow-md">
+                <h2 class="text-2xl font-semibold">Code bar généré</h2>
+                <div id="barcodeOutput" class="mt-4"></div>
+            </section>
+        </main>
+        
+        <footer class="w-full bg-[#00D699] p-6 mt-8 text-white text-center">
+            <p>BE-ToolBox - 2024</p>
+        </footer>
+    </div>
+    
+    <script src="../js/barcode-generator.js"></script>
+</body>
+</html>

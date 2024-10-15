@@ -1,0 +1,139 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #00D699;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+footer {
+    background-color: #00D699;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#sidebar {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    width: 200px;
+    position: fixed;
+    height: 100%;
+}
+
+#sidebar img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    margin: 10px 0;
+}
+
+#sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+#main-content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+#drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: white;
+}
+
+#drop-area.highlight {
+    border-color: #00D699;
+}
+
+.my-form button {
+    background-color: #00D699;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.my-form button:hover {
+    background-color: #007d4f;
+}
+
+#csv-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#csv-table th, #csv-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#csv-table th {
+    background-color: #00D699;
+    color: white;
+}
+
+#csv-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#csv-table tr:hover {
+    background-color: #ddd;
+}
+
+#sums, #category-sums {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.copy-button {
+    background-color: #00D699;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background-color: #007d4f;
+}
+
+#bandeau-succes {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #38a169;
+    color: #fff;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}
