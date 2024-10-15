@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE-ToolBox</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.3s ease;
+        }
+        .copied {
+            background-color: #00D699 !important;
+            transition: background-color 0.3s ease;
+        }
+        #csv-table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #00D699;
+            z-index: 1;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #00D699;
+            color: white;
+            padding-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        #sidebar img {
+            width: 180px;
+            margin-bottom: 30px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        #sidebar img:hover {
+            transform: scale(1.15);
+        }
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+        #sidebar ul li {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            display: block;
+            transition: background-color 0.3s, transform 0.2s;
+            border-radius: 12px;
+        }
+        #sidebar ul li a:hover {
+            background-color: #00c488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        #main-content {
+            margin-left: 270px;
+            width: calc(100% - 270px);
+            padding: 60px;
+            transition: margin-left 0.3s ease;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(to right, #00D699, #00c488);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        header:hover {
+            transform: translateY(-5px);
+        }
+        header h1 {
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 3.8rem;
+        }
+        #drop-area {
+            background-color: #ffffff;
+            border: 2px dashed #00D699;
+            padding: 60px;
+            border-radius: 20px;
+            transition: transform 0.5s, box-shadow 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        #drop-area:hover {
+            transform: scale(1.07);
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        .form-button {
+            background: #00D699;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            font-size: 1.4rem;
+            padding: 20px 40px;
+            transition: background-color 0.3s ease, box-shadow 0.3s;
+            border-radius: 12px;
+        }
+        .form-button:hover {
+            background: #00c488;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+        #sums, #category-sums {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        #sums:hover, #category-sums:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+        .grid div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .copy-button {
+            background: #00D699;
+            transition: background-color 0.3s, transform 0.2s;
+            padding: 20px 35px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .copy-button:hover {
+            background: #00c488;
+            transform: scale(1.12);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-100">
+    <div id="sidebar">
+        <img src="https://www.seiven.com/wp-content/uploads/2024/09/Logo-blanc-3-Seiven-2024.webp" alt="Logo">
+        <ul>
+            <li><a href="#drop-area">Analyseur CSV Amélioré</a></li>
+            <li><a href="#codebar-generator">Générateur de code bar</a></li>
+        </ul>
+    </div>
+    
+    <div id="main-content">
+        <header class="w-full text-white text-center shadow-md">
+            <h1 class="text-5xl font-bold">BE-ToolBox</h1>
+        </header>
+        
+        <main class="w-full flex flex-col items-center mt-8 px-4">
+            <div id="drop-area" class="rounded-lg w-full max-w-3xl text-center">
+                <form class="my-form">
+                    <button class="form-button text-white font-bold rounded mb-4">
+                        <i class="fas fa-file-upload"></i> Sélectionner un fichier CSV
+                    </button>
+                    <p>Faites glisser et déposez un fichier CSV ici ou cliquez pour sélectionner un fichier</p>
+                    <input type="file" id="fileElem" accept=".csv" onchange="gererFichiers(this.files)" class="hidden">
+                </form>
+            </div>
+            
+            <section id="file-upload-instructions" class="w-full max-w-3xl p-6 bg-[#00D699] rounded-lg mt-6 shadow-md">
+                <h2 class="text-2xl font-semibold">Instructions de Téléchargement de Fichier</h2>
+                <p class="mt-2">Veuillez télécharger un fichier CSV avec les colonnes suivantes: NOM PIECE, LIBELLE PIECE, GROUPE, ISO, L, P, H1, H2, LIBELLE MATIERE, POIDS, CUBAGE, Quantité, Commentaire Perspective, ARTICLE CATA, QTE ARTICLE CATA, ARTICLE ASSOC, QTE ARTICLE ASSOC, Splittage, FINITION.</p>
+            </section>
+            
+            <section id="csv-table-container" class="w-full max-w-3xl overflow-auto mt-8 shadow-lg rounded-lg">
+                <table id="csv-table" class="min-w-full border-collapse bg-white rounded-lg">
+                    <thead>
+                        <tr class="bg-[#00D699] text-white">
+                            <th class="border border-gray-300 p-2">NOM PIECE</th>
+                            <th class="border border-gray-300 p-2">LIBELLE PIECE</th>
+                            <th class="border border-gray-300 p-2">GROUPE</th>
+                            <th class="border border-gray-300 p-2">ISO</th>
+                            <th class="border border-gray-300 p-2">L</th>
+                            <th class="border border-gray-300 p-2">P</th>
+                            <th class="border border-gray-300 p-2">H1</th>
+                            <th class="border border-gray-300 p-2">H2</th>
+                            <th class="border border-gray-300 p-2">LIBELLE MATIERE</th>
+                            <th class="border border-gray-300 p-2">POIDS</th>
+                            <th class="border border-gray-300 p-2">CUBAGE</th>
+                            <th class="border border-gray-300 p-2">Quantité</th>
+                            <th class="border border-gray-300 p-2">Commentaire Perspective</th>
+                            <th class="border border-gray-300 p-2">ARTICLE CATA</th>
+                            <th class="border border-gray-300 p-2">QTE ARTICLE CATA</th>
+                            <th class="border border-gray-300 p-2">ARTICLE ASSOC</th>
+                            <th class="border border-gray-300 p-2">QTE ARTICLE ASSOC</th>
+                            <th class="border border-gray-300 p-2">Splittage</th>
+                            <th class="border border-gray-300 p-2">FINITION</th>
+                            <th class="border border-gray-300 p-2">Catégorie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section id="sums" class="w-full max-w-3xl mt-8 p-6 rounded-lg shadow-md">
+                <h2 class="text-3xl font-semibold mb-4 text-[#00D699]">Sommes Calculées</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <p id="sum-cubage" class="bg-gray-100 p-4 rounded shadow-inner border">Somme de CUBAGE: 0</p>
+                    <p id="sum-poids" class="bg-gray-100 p-4 rounded shadow-inner border">Somme de POIDS: 0</p>
+                </div>
+            </section>
+            
+            <section id="category-sums" class="w-full max-w-3xl mt-8 p-6 rounded-lg text-center shadow-md">
+                <h2 class="text-3xl font-semibold mb-4 text-[#00D699]">Sommes par Catégorie</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div id="category-cubage" class="bg-gray-100 p-4 rounded shadow-inner border"></div>
+                    <button id="copy-cubage" class="copy-button text-white font-bold py-3 px-5 mt-4 rounded">Copier Cubage</button>
+                    <div id="category-poids" class="bg-gray-100 p-4 rounded shadow-inner border"></div>
+                    <button id="copy-poids" class="copy-button text-white font-bold py-3 px-5 mt-4 rounded">Copier Poids</button>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="w-full bg-[#00D699] p-6 mt-8 text-white text-center">
+            <p>BE-ToolBox - 2024</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
