@@ -1,4 +1,3 @@
-
 /* Button styling */
 button:hover {
     transition: background-color 0.3s ease;
@@ -20,66 +19,156 @@ button:hover {
     width: 50px;
     height: 50px;
 }
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyseur CSV</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
-</head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-    <h1 class="text-3xl font-bold mt-8">Analyseur CSV</h1>
-    <div id="drop-area" class="border-2 border-dashed border-gray-400 rounded-lg w-4/5 max-w-xl p-8 text-center bg-white mt-8">
-        <form class="my-form">
-            <p>Faites glisser et déposez un fichier CSV ici ou cliquez pour sélectionner un fichier</p>
-            <input type="file" id="fileElem" accept=".csv" onchange="gererFichiers(this.files)" class="hidden">
-        </form>
-    </div>
-    <div id="file-upload-instructions" class="w-4/5 max-w-xl p-4 bg-blue-100 rounded-lg mt-4">
-        <h2 class="text-xl font-semibold">Instructions de Téléchargement de Fichier</h2>
-        <p class="mt-2">Veuillez télécharger un fichier CSV avec les colonnes suivantes: NOM PIECE, LIBELLE PIECE, GROUPE, ISO, L, P, H1, H2, LIBELLE MATIERE, POIDS, CUBAGE, Quantité, Commentaire Perspective, ARTICLE CATA, QTE ARTICLE CATA, ARTICLE ASSOC, QTE ARTICLE ASSOC, Splittage, FINITION.</p>
-    </div>
-    <table id="csv-table" class="w-4/5 max-w-xl border-collapse mt-8 bg-white">
-        <thead>
-            <tr>
-                <th class="border border-gray-300 p-2 bg-gray-200">NOM PIECE</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">LIBELLE PIECE</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">GROUPE</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">ISO</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">L</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">P</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">H1</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">H2</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">LIBELLE MATIERE</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">POIDS</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">CUBAGE</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">Quantité</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">Commentaire Perspective</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">ARTICLE CATA</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">QTE ARTICLE CATA</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">ARTICLE ASSOC</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">QTE ARTICLE ASSOC</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">Splittage</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">FINITION</th>
-                <th class="border border-gray-300 p-2 bg-gray-200">Catégorie</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div id="sums" class="mt-8 text-center">
-        <h2 class="text-2xl font-semibold mb-4">Sommes Calculées</h2>
-        <p id="sum-cubage">Somme de CUBAGE: 0</p>
-        <p id="sum-poids">Somme de POIDS: 0</p>
-    </div>
-    <div id="category-sums" class="mt-8 text-center">
-        <h2 class="text-2xl font-semibold mb-4">Sommes par Catégorie</h2>
-        <div id="category-cubage"></div>
-        <div id="category-poids"></div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+
+/* Sidebar styling */
+#sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #00D699;
+    color: white;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+#sidebar img {
+    width: 180px;
+    margin-bottom: 30px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+#sidebar img:hover {
+    transform: scale(1.15);
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+#sidebar ul li {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    padding: 15px;
+    display: block;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 12px;
+}
+
+#sidebar ul li a:hover {
+    background-color: #00c488;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Main content styling */
+#main-content {
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    padding: 60px;
+    transition: margin-left 0.3s ease;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, #00D699, #00c488);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 50px;
+    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+header:hover {
+    transform: translateY(-5px);
+}
+
+header h1 {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 3.8rem;
+}
+
+/* Drop area styling */
+#drop-area {
+    background-color: #ffffff;
+    border: 2px dashed #00D699;
+    padding: 60px;
+    border-radius: 20px;
+    transition: transform 0.5s, box-shadow 0.3s;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+#drop-area:hover {
+    transform: scale(1.07);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Form button styling */
+.form-button {
+    background: #00D699;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    font-size: 1.4rem;
+    padding: 20px 40px;
+    transition: background-color 0.3s ease, box-shadow 0.3s;
+    border-radius: 12px;
+}
+
+.form-button:hover {
+    background: #00c488;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Sums and category sums styling */
+#sums, #category-sums {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#sums:hover, #category-sums:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Grid styling */
+.grid div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+/* Copy button styling */
+.copy-button {
+    background: #00D699;
+    transition: background-color 0.3s, transform 0.2s;
+    padding: 20px 35px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.copy-button:hover {
+    background: #00c488;
+    transform: scale(1.12);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
