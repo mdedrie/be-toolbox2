@@ -168,8 +168,8 @@
     <div id="sidebar">
         <img src="https://www.seiven.com/wp-content/uploads/2024/09/Logo-blanc-3-Seiven-2024.webp" alt="Logo">
         <ul>
-            <li><a href="csv-analyzer.html">Analyseur CSV Amélioré</a></li>
-            <li><a href="barcode-generator.html">Générateur de code bar</a></li>
+            <li><a href="#drop-area">Analyseur CSV Amélioré</a></li>
+            <li><a href="#codebar-generator">Générateur de code bar</a></li>
         </ul>
     </div>
     
@@ -179,6 +179,69 @@
         </header>
         
         <main class="w-full flex flex-col items-center mt-8 px-4">
+            <div id="drop-area" class="rounded-lg w-full max-w-3xl text-center">
+                <form class="my-form">
+                    <button class="form-button text-white font-bold rounded mb-4">
+                        <i class="fas fa-file-upload"></i> Sélectionner un fichier CSV
+                    </button>
+                    <p>Faites glisser et déposez un fichier CSV ici ou cliquez pour sélectionner un fichier</p>
+                    <input type="file" id="fileElem" accept=".csv" onchange="gererFichiers(this.files)" class="hidden">
+                </form>
+            </div>
+            
+            <section id="file-upload-instructions" class="w-full max-w-3xl p-6 bg-[#00D699] rounded-lg mt-6 shadow-md">
+                <h2 class="text-2xl font-semibold">Instructions de Téléchargement de Fichier</h2>
+                <p class="mt-2">Veuillez télécharger un fichier CSV avec les colonnes suivantes: NOM PIECE, LIBELLE PIECE, GROUPE, ISO, L, P, H1, H2, LIBELLE MATIERE, POIDS, CUBAGE, Quantité, Commentaire Perspective, ARTICLE CATA, QTE ARTICLE CATA, ARTICLE ASSOC, QTE ARTICLE ASSOC, Splittage, FINITION.</p>
+            </section>
+            
+            <section id="csv-table-container" class="w-full max-w-3xl overflow-auto mt-8 shadow-lg rounded-lg">
+                <table id="csv-table" class="min-w-full border-collapse bg-white rounded-lg">
+                    <thead>
+                        <tr class="bg-[#00D699] text-white">
+                            <th class="border border-gray-300 p-2">NOM PIECE</th>
+                            <th class="border border-gray-300 p-2">LIBELLE PIECE</th>
+                            <th class="border border-gray-300 p-2">GROUPE</th>
+                            <th class="border border-gray-300 p-2">ISO</th>
+                            <th class="border border-gray-300 p-2">L</th>
+                            <th class="border border-gray-300 p-2">P</th>
+                            <th class="border border-gray-300 p-2">H1</th>
+                            <th class="border border-gray-300 p-2">H2</th>
+                            <th class="border border-gray-300 p-2">LIBELLE MATIERE</th>
+                            <th class="border border-gray-300 p-2">POIDS</th>
+                            <th class="border border-gray-300 p-2">CUBAGE</th>
+                            <th class="border border-gray-300 p-2">Quantité</th>
+                            <th class="border border-gray-300 p-2">Commentaire Perspective</th>
+                            <th class="border border-gray-300 p-2">ARTICLE CATA</th>
+                            <th class="border border-gray-300 p-2">QTE ARTICLE CATA</th>
+                            <th class="border border-gray-300 p-2">ARTICLE ASSOC</th>
+                            <th class="border border-gray-300 p-2">QTE ARTICLE ASSOC</th>
+                            <th class="border border-gray-300 p-2">Splittage</th>
+                            <th class="border border-gray-300 p-2">FINITION</th>
+                            <th class="border border-gray-300 p-2">Catégorie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section id="sums" class="w-full max-w-3xl mt-8 p-6 rounded-lg shadow-md">
+                <h2 class="text-3xl font-semibold mb-4 text-[#00D699]">Sommes Calculées</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <p id="sum-cubage" class="bg-gray-100 p-4 rounded shadow-inner border">Somme de CUBAGE: 0</p>
+                    <p id="sum-poids" class="bg-gray-100 p-4 rounded shadow-inner border">Somme de POIDS: 0</p>
+                </div>
+            </section>
+            
+            <section id="category-sums" class="w-full max-w-3xl mt-8 p-6 rounded-lg text-center shadow-md">
+                <h2 class="text-3xl font-semibold mb-4 text-[#00D699]">Sommes par Catégorie</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div id="category-cubage" class="bg-gray-100 p-4 rounded shadow-inner border"></div>
+                    <button id="copy-cubage" class="copy-button text-white font-bold py-3 px-5 mt-4 rounded">Copier Cubage</button>
+                    <div id="category-poids" class="bg-gray-100 p-4 rounded shadow-inner border"></div>
+                    <button id="copy-poids" class="copy-button text-white font-bold py-3 px-5 mt-4 rounded">Copier Poids</button>
+                </div>
+            </section>
         </main>
         
         <footer class="w-full bg-[#00D699] p-6 mt-8 text-white text-center">
