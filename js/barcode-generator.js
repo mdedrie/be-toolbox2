@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 format: 'CODE128',
                 displayValue: true
             });
+            canvas.style.display = 'block'; // Ensure the barcode does not disappear
         });
 
         // Add event listener to the copy button
