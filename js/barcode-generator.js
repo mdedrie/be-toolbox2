@@ -1,25 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const barcodeInput = document.getElementById('barcodeInput');
-    const barcodeOutput = document.getElementById('barcodeOutput');
-    const formButton = document.querySelector('.form-button');
+document.addEventListener('DOMContentLoaded', function() {
+    // Import the JsBarcode library
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js';
+    document.head.appendChild(script);
 
-    formButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        const inputData = barcodeInput.value;
-        if (inputData) {
-            generateBarcode(inputData);
-        } else {
-            alert('Veuillez entrer des données pour générer un code bar.');
-        }
-    });
+    script.onload = function() {
+        // Add event listener to the generate button
+        const generateBtn = document.getElementById('generate-btn');
+        generateBtn.addEventListener('click', function() {
+            const textInput = document.getElementById('text-input').value;
+            const canvas = document.getElementById('barcode');
+            JsBarcode(canvas, textInput, {
+                format: 'CODE128',
+                displayValue: true
+            });
+        });
 
-    function generateBarcode(data) {
-        // Clear previous barcode
-        barcodeOutput.innerHTML = '';
-
-        // Generate barcode using a library or custom logic
-        const barcode = document.createElement('div');
-        barcode.textContent = `Code bar: ${data}`;
-        barcodeOutput.appendChild(barcode);
-    }
+        // Add event listener to the copy button
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.addEventListener('click', function() {
+            const canvas = document.getElementById('barcode');
+            canvas.toBlob(function(blob) {
+                const item = new ClipboardItem({ 'image/png': blob });
+                navigator.clipboard.write([item]);
+            });
+        });
+    };
 });
