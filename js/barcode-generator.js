@@ -15,15 +15,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 displayValue: true
             });
             canvas.style.display = 'block'; // Ensure the barcode does not disappear
-        });
 
-        // Add event listener to the copy button
-        const copyBtn = document.getElementById('copy-btn');
-        copyBtn.addEventListener('click', function() {
-            const canvas = document.getElementById('barcode');
+            // Automatically copy the barcode to the clipboard
             canvas.toBlob(function(blob) {
                 const item = new ClipboardItem({ 'image/png': blob });
-                navigator.clipboard.write([item]);
+                navigator.clipboard.write([item]).then(() => {
+                    // Display success message
+                    const successMessage = document.createElement('div');
+                    successMessage.textContent = 'Code barre copié avec succès !';
+                    successMessage.style.position = 'fixed';
+                    successMessage.style.top = '20px';
+                    successMessage.style.left = '50%';
+                    successMessage.style.transform = 'translateX(-50%)';
+                    successMessage.style.padding = '10px 20px';
+                    successMessage.style.backgroundColor = '#38a169';
+                    successMessage.style.color = '#fff';
+                    successMessage.style.borderRadius = '5px';
+                    successMessage.style.zIndex = '1000';
+                    document.body.appendChild(successMessage);
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 2000);
+                });
             });
         });
     };
