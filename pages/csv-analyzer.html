@@ -9,18 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"></script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-100">
-    <div id="sidebar">
-        <img src="https://www.seiven.com/wp-content/uploads/2024/09/Logo-blanc-3-Seiven-2024.webp" alt="Logo">
-        <ul>
-            <li><a href="csv-analyzer.html">Analyseur CSV Amélioré</a></li>
-            <li><a href="barcode-generator.html">Générateur de code bar</a></li>
-        </ul>
-    </div>
+    <include src="../partials/menu.html"></include>
     
     <div id="main-content">
-        <header class="w-full text-white text-center shadow-md">
-            <h1 class="text-5xl font-bold">BE-ToolBox</h1>
-        </header>
+        <include src="../partials/header.html"></include>
         
         <main class="w-full flex flex-col items-center mt-8 px-4">
             <div id="drop-area" class="rounded-lg w-full max-w-3xl text-center">
@@ -88,9 +80,7 @@
             </section>
         </main>
         
-        <footer class="w-full bg-[#00D699] p-6 mt-8 text-white text-center">
-            <p>BE-ToolBox - 2024</p>
-        </footer>
+        <include src="../partials/footer.html"></include>
     </div>
     
     <script src="../js/csv-analyzer.js"></script>
